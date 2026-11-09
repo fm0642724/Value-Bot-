@@ -1,0 +1,10 @@
+<!-- Add this to AndroidManifest.xml inside <manifest> -->
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+<!-- Inside <application> tag -->
+<service
+    android:name="com.aistudio.gameboostai.overlay.OverlayService"
+    android:exported="false"
+    android:foregroundServiceType="specialUse" />
