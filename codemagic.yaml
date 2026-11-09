@@ -1,0 +1,42 @@
+workflows:
+  android-build:
+    name: Qarqoush APK
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+
+    environment:
+      java: 17
+
+    scripts:
+      - name: Generate Gradle Wrapper
+        script: |
+          mkdir -p /tmp/gradle-wrapper
+          cd /tmp/gradle-wrapper
+          touch build.gradle
+          gradle wrapper --gradle-version 9.3.1
+          cp gradlew "$CM_BUILD_DIR/"
+          mkdir -p "$CM_BUILD_DIR/gradle/wrapper"
+          cp gradle/wrapper/* "$CM_BUILD_DIR/gradle/wrapper/"
+
+      - name: Prepare Android
+        script: |
+          cd "$CM_BUILD_DIR"
+          chmod +x gradlew
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+          keytool -genkeypair -v \
+            -keystore debug.keystore \
+            -storepass android \
+            -alias androiddebugkey \
+            -keypass android \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -dname "CN=Android Debug,O=Android,C=US"
+
+      - name: Build APK
+        script: |
+          cd "$CM_BUILD_DIR"
+          ./gradlew assembleDebug
+
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
