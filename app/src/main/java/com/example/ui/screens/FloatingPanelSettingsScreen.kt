@@ -97,6 +97,9 @@ fun FloatingPanelSettingsScreen(
             idleAutoFade = idleAutoFade
         )
         prefsManager.updateFloatingSettings(updated)
+        if (updated.enabled && com.example.overlay.OverlayService.isPermissionGranted(context)) {
+            com.example.overlay.OverlayService.start(context)
+        }
         Toast.makeText(context, if (isArabic) "تم حفظ إعدادات اللوحة العائمة!" else "Floating panel settings saved!", Toast.LENGTH_SHORT).show()
     }
 
@@ -255,6 +258,9 @@ fun FloatingPanelSettingsScreen(
                     onClick = {
                         prefsManager.setFloatingPanelEnabled(true)
                         prefsManager.setFloatingPanelMinimized(false)
+                        if (com.example.overlay.OverlayService.isPermissionGranted(context)) {
+                            com.example.overlay.OverlayService.start(context)
+                        }
                         Toast.makeText(context, if (isArabic) "تم إظهار الزر العائم للاختبار!" else "Floating button activated!", Toast.LENGTH_SHORT).show()
                     },
                     modifier = Modifier.weight(1f).height(46.dp),

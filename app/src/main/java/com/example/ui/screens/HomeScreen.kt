@@ -50,6 +50,7 @@ fun HomeScreen(
     onNavigateToCrosshairEditor: () -> Unit,
     onNavigateToFloatingSettings: () -> Unit,
     fpsMeasured: Int = 60,
+    onToggleFloatingPanel: ((Boolean) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val floatingSettings by prefsManager.floatingSettings.collectAsState()
@@ -129,7 +130,9 @@ fun HomeScreen(
             FloatingPanelBar(
                 enabled = floatingSettings.enabled,
                 isArabic = isArabic,
-                onEnabledChange = { prefsManager.setFloatingPanelEnabled(it) }
+                onEnabledChange = {
+                    onToggleFloatingPanel?.invoke(it) ?: prefsManager.setFloatingPanelEnabled(it)
+                }
             )
 
             Spacer(modifier = Modifier.height(14.dp))

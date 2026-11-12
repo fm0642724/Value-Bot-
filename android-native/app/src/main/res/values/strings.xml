@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">GAME BOOST AI</string>
+    <string name="floating_panel_label">Floating Panel Overlay</string>
+    <string name="floating_panel_desc">Displays floating tactical crosshair and HUD panel over Free Fire and other games</string>
+    <string name="overlay_permission_title">Display Over Other Apps Permission Required</string>
+    <string name="overlay_permission_message">GAME BOOST AI requires the 'Display over other apps' (SYSTEM_ALERT_WINDOW) permission to show the floating button and tactical crosshair overlay above Free Fire during matches.\n\nTap 'Grant Permission' to open Android settings.</string>
+    <string name="grant_permission">Grant Permission</string>
+    <string name="cancel">Cancel</string>
+    <string name="notification_channel_name">Game Boost AI Overlay</string>
+    <string name="notification_channel_desc">Shows active status and quick controls for gaming HUD overlay</string>
+    <string name="notification_title">GAME BOOST AI: Overlay Active</string>
+    <string name="notification_text">Tactical HUD and Crosshair running over games</string>
+</resources>

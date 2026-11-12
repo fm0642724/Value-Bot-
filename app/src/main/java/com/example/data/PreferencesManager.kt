@@ -63,6 +63,15 @@ class PreferencesManager private constructor(context: Context) {
     private val _weaponStabilityEnabled = MutableStateFlow(prefs.getBoolean(KEY_WEAPON_STABILITY_ENABLED, false))
     val weaponStabilityEnabled: StateFlow<Boolean> = _weaponStabilityEnabled.asStateFlow()
 
+    // Active Floating Interface Mode: 0 = New AI Features Interface, 1 = Original Game Boost Interface
+    private val _floatingInterfaceMode = MutableStateFlow(prefs.getInt(KEY_FLOATING_INTERFACE_MODE, 0))
+    val floatingInterfaceMode: StateFlow<Int> = _floatingInterfaceMode.asStateFlow()
+
+    fun setFloatingInterfaceMode(mode: Int) {
+        prefs.edit().putInt(KEY_FLOATING_INTERFACE_MODE, mode).apply()
+        _floatingInterfaceMode.value = mode
+    }
+
     fun setAimbotEnabled(enabled: Boolean) {
         prefs.edit().putBoolean(KEY_AIMBOT_ENABLED, enabled).apply()
         _aimbotEnabled.value = enabled
@@ -544,6 +553,7 @@ class PreferencesManager private constructor(context: Context) {
         private const val KEY_FPS_STABILIZER_ENABLED = "cyber_fps_stabilizer_enabled"
         private const val KEY_PING_FIX_ENABLED = "cyber_ping_fix_enabled"
         private const val KEY_WEAPON_STABILITY_ENABLED = "cyber_weapon_stability_enabled"
+        private const val KEY_FLOATING_INTERFACE_MODE = "key_floating_interface_mode"
 
         @Volatile
         private var instance: PreferencesManager? = null

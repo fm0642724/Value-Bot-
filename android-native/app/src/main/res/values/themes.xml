@@ -1,0 +1,11 @@
+<resources>
+    <style name="Theme.GameBoostAI" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/neon_red_primary</item>
+        <item name="colorPrimaryVariant">@color/neon_red_dark</item>
+        <item name="colorOnPrimary">@color/text_white</item>
+        <item name="colorSecondary">@color/neon_green_accent</item>
+        <item name="android:windowBackground">@color/gaming_bg</item>
+        <item name="android:statusBarColor">@color/gaming_bg</item>
+        <item name="android:navigationBarColor">@color/gaming_bg</item>
+    </style>
+</resources>

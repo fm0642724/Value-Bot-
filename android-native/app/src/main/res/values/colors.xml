@@ -1,0 +1,11 @@
+<resources>
+    <color name="neon_red_primary">#FF1E3C</color>
+    <color name="neon_red_bright">#FF3B56</color>
+    <color name="neon_red_dark">#7A0D1E</color>
+    <color name="neon_green_accent">#00FF66</color>
+    <color name="gaming_bg">#090A0F</color>
+    <color name="card_bg">#12141D</color>
+    <color name="card_stroke">#222634</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_muted">#8A93A6</color>
+</resources>
