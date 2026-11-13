@@ -22,9 +22,11 @@ workflows:
         script: |
           cd "$CM_BUILD_DIR"
           chmod +x gradlew
+
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+
           keytool -genkeypair -v \
-            -keystore debug.keystore \
+            -keystore "$CM_BUILD_DIR/debug.keystore" \
             -storepass android \
             -alias androiddebugkey \
             -keypass android \
@@ -32,6 +34,10 @@ workflows:
             -keysize 2048 \
             -validity 10000 \
             -dname "CN=Android Debug,O=Android,C=US"
+
+          echo "Checking Keystore..."
+          ls -l "$CM_BUILD_DIR/debug.keystore"
+          test -f "$CM_BUILD_DIR/debug.keystore"
 
       - name: Build APK
         script: |
