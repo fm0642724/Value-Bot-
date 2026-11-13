@@ -10,6 +10,7 @@ workflows:
     scripts:
       - name: Generate Gradle Wrapper
         script: |
+          set -e
           mkdir -p /tmp/gradle-wrapper
           cd /tmp/gradle-wrapper
           touch build.gradle
@@ -20,12 +21,18 @@ workflows:
 
       - name: Prepare Android
         script: |
+          set -e
           cd "$CM_BUILD_DIR"
+
           chmod +x gradlew
 
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
-          keytool -genkeypair -v \
+          echo "Generating Debug Keystore..."
+
+          rm -f "$CM_BUILD_DIR/debug.keystore"
+
+          keytool -genkeypair -noprompt -v \
             -keystore "$CM_BUILD_DIR/debug.keystore" \
             -storepass android \
             -alias androiddebugkey \
@@ -36,13 +43,30 @@ workflows:
             -dname "CN=Android Debug,O=Android,C=US"
 
           echo "Checking Keystore..."
+
           ls -l "$CM_BUILD_DIR/debug.keystore"
+
           test -f "$CM_BUILD_DIR/debug.keystore"
+
+          echo "Keystore successfully generated!"
+
+      - name: Verify Signing File
+        script: |
+          set -e
+
+          echo "Checking project root:"
+          ls -la "$CM_BUILD_DIR"
+
+          test -f "$CM_BUILD_DIR/debug.keystore"
+
+          echo "Signing file exists."
 
       - name: Build APK
         script: |
+          set -e
           cd "$CM_BUILD_DIR"
-          ./gradlew assembleDebug
+
+          ./gradlew assembleDebug --no-daemon
 
     artifacts:
       - app/build/outputs/apk/debug/*.apk
